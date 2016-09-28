@@ -2,8 +2,9 @@
 
 namespace Base
 {
-    public enum Notifications
+    public enum StageEnum
     {
-        None
+        None,
     }
 }
+

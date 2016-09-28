@@ -3,16 +3,17 @@
 using System;
 using System.Collections;
 
-public class Mediator 
+namespace Base
 {
-    private Router router;
-
-    public virtual Notifications[] GetInterestedNotifications()
+    public class Mediator 
     {
-        return null;
-    }
+        public virtual Notifications[] GetInterestedNotifications()
+        {
+            return null;
+        }
 
-    public virtual void OnNotify(Enum notification, object param)
-    {
+        public virtual void OnNotify(Enum notification, object param)
+        {
+        }
     }
 }
