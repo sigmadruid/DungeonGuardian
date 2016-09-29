@@ -7,8 +7,11 @@ namespace Base
 {
     public class Game  
     {
+        public Router Router;
+        
         public virtual void Start()
         {
+            Router = new Router();
         }
 
         public virtual void Update()
