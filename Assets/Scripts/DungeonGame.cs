@@ -1,33 +1,63 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using System;
+using System.Collections;
 
 using Base;
 
-public class DungeonGame : Game
+namespace Logic
 {
-    private static DungeonGame instance;
-    public static DungeonGame Instance
+    public class DungeonGame : Game
     {
-        get
+        public static DungeonGame Instance
         {
-            if (instance == null) instance = new DungeonGame();
-            return instance;
+            get
+            {
+                return instance as DungeonGame;
+            }
+        }
+
+        #region Manager List
+
+        public InputManager InputManager;
+        public StageManager StageManager;
+
+        #endregion
+
+        public override void OnInit()
+        {
+            InitManagers();
+            InitStages();
+            Debug.Log("game starts");
+        }
+        public override void OnDispose()
+        {
+            DisposeManagers();
+            Debug.Log("game ends");
+        }
+        public override void OnUpdate()
+        {
+        }
+        public override void OnHeartBeat()
+        {
+        }
+
+
+        private void InitManagers()
+        {
+            InputManager.Init();
+            StageManager.Init();
+        }
+        private void DisposeManagers()
+        {
+            InputManager.Dispose();
+            StageManager.Dispose();
+        }
+        private void InitStages()
+        {
+            StageManager.AddStage(new StageEntry());
+            StageManager.AddStage(new StageBattle());
         }
     }
-
-    public InputManager InputManager;
-
-    public override void Start()
-    {
-        base.Start();
-
-        InputManager.Init();
-    }
-
-    public override void End()
-    {
-        base.End();
-    }
 }
-

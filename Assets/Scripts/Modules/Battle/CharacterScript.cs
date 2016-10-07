@@ -1,6 +1,8 @@
 ﻿using System;
 
-namespace Base
+using Base;
+
+namespace Logic
 {
     public class CharacterScript : EntityScript
     {
