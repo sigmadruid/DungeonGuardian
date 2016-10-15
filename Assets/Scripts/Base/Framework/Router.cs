@@ -5,6 +5,16 @@ namespace Base
 {
     public class Router
     {
+        private static Router instance;
+        public static Router Instance
+        {
+            get
+            {
+                if (instance == null) instance = new Router();
+                return instance;
+            }
+        }
+
         private Dictionary<int, List<Mediator>> mediatorDic = new Dictionary<int, List<Mediator>>();
 
         private bool isNotifying;

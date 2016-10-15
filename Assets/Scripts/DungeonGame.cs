@@ -12,14 +12,12 @@ namespace Logic
     {
         public new static DungeonGame Instance
         {
-            get
-            {
-                return instance as DungeonGame;
-            }
+            get { return instance as DungeonGame; }
         }
 
         #region Manager List
 
+        public TaskManager TaskManager;
         public InputManager InputManager;
         public StageManager StageManager;
 
@@ -30,28 +28,25 @@ namespace Logic
             InitManagers();
             InitMediators();
             InitStages();
-            Debug.Log("game starts");
         }
         public override void OnDispose()
         {
             DisposeManagers();
-            Debug.Log("game ends");
         }
         public override void OnUpdate()
         {
+            TaskManager.Update();
         }
-        public override void OnHeartBeat()
-        {
-        }
-
 
         private void InitManagers()
         {
+            TaskManager.Init();
             InputManager.Init();
             StageManager.Init();
         }
         private void DisposeManagers()
         {
+            TaskManager.Dispose();
             InputManager.Dispose();
             StageManager.Dispose();
         }
@@ -60,10 +55,9 @@ namespace Logic
             StageManager.AddStage(new StageEntry());
             StageManager.AddStage(new StageBattle());
         }
-
         private void InitMediators()
         {
-            Router.Add(new MonsterMediator());
+            Router.Instance.Add(new MonsterMediator());
         }
     }
 }

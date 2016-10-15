@@ -16,14 +16,11 @@ namespace Logic
             base.Enter();
 
             InitCoroutine();
-
-            BaseLogger.Log("battle enter");
         }
 
         public override void Exit()
         {
             base.Exit();
-            BaseLogger.Log("battle exit");
         }
 
         private void InitCoroutine()
@@ -33,7 +30,7 @@ namespace Logic
 
             AstarPath.active.Scan();
 
-            DungeonGame.instance.Router.Notify(Notifications.MONSTER_INIT);
+            Router.Instance.Notify(Notifications.MONSTER_INIT);
         }
     }
 }

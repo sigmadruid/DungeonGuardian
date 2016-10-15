@@ -29,7 +29,7 @@ namespace Base
                 if (Physics.Raycast(ray, out hit, 9999f, Layer.Map))
                 {
                     MousePosition = hit.point;
-                    Game.instance.Router.Notify(Notifications.INPUT_MOUSE_CLICK, MousePosition);
+                    Router.Instance.Notify(Notifications.INPUT_MOUSE_CLICK, MousePosition);
                 }
 
             }

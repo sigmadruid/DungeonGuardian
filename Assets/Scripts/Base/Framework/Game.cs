@@ -16,24 +16,21 @@ namespace Base
             }
         }
 
-        public Router Router = new Router();
+        protected Router router;
 
-        private bool hasInitialized;
-
-        private readonly WaitForSeconds HEART_BEAT_DELAY = new WaitForSeconds(1f);
+        protected bool hasInitialized;
 
         void Awake()
         {
             DontDestroyOnLoad(gameObject);
             instance = this;
+            router = Router.Instance;
 
             OnInit();
             hasInitialized = true;
-            StartCoroutine(SlowUpdate());
         }
         void OnDestroy()
         {
-            StopCoroutine(SlowUpdate());
             OnDispose();
             instance = null;
         }
@@ -43,19 +40,9 @@ namespace Base
             if (!hasInitialized) return;
             OnUpdate();
         }
-        IEnumerator SlowUpdate()
-        {
-            while(true)
-            {
-                if (!hasInitialized) continue;
-                OnHeartBeat();
-                yield return HEART_BEAT_DELAY;
-            }
-        }
         
         public abstract void OnInit();
         public abstract void OnUpdate();
-        public abstract void OnHeartBeat();
         public abstract void OnDispose();
 
         #region Stage Management
