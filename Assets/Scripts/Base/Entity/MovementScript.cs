@@ -6,14 +6,27 @@ using Pathfinding;
 
 namespace Base
 {
+    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(Seeker))]
     public class MovementScript : MonoBehaviour
     {
-        public float Speed;
+        public Action CallbackMoveStart;
+        public Action CallbackMoveTurn;
+        public Action CallbackMoveEnd;
 
-        public float StopDistance;
+        public float Speed = 3;
+
+        public float AngularSpeed = 5;
+
+        public float StopDistance = 0.1f;
+
+        public bool EnableLog = false;
 
         private Path path;
-        private int pathIndex;
+        private int nextPathIndex;
+        private Vector3 nextPosition;
+        private Vector3 currentDirection;
+        private Vector3 desiredDirection;
 
         private Seeker seeker;
         private CharacterController controller;
@@ -22,41 +35,73 @@ namespace Base
         {
             seeker = GetComponent<Seeker>();
             controller = GetComponent<CharacterController>();
-            pathIndex = 0;
         }
 
         void Update()
         {
             if (path == null) return;
-            if (pathIndex >= path.vectorPath.Count) return;
 
-            Vector3 destPosition = path.vectorPath[pathIndex];
-            Vector3 direction = destPosition - transform.position;
-            direction.Normalize();
-            Vector3 velocity = direction * Speed * Time.deltaTime;
-            controller.Move(velocity);
-
-            if (Vector3.Distance(transform.position, destPosition) < StopDistance)
+            if (nextPathIndex < path.vectorPath.Count) 
             {
-                pathIndex++;
+                nextPosition = path.vectorPath[nextPathIndex];
+                desiredDirection = (nextPosition - transform.position).normalized;
+
+                currentDirection = Vector3.Lerp(currentDirection, desiredDirection, Time.deltaTime * AngularSpeed);
+                currentDirection.Normalize();
+                controller.Move(desiredDirection * Speed * Time.deltaTime);
+
+                if (MathUtils.XZDistance(transform.position, nextPosition) < StopDistance)
+                {
+                    nextPathIndex++;
+                    if (nextPathIndex == path.vectorPath.Count)
+                    {
+                        transform.position = path.vectorPath[path.vectorPath.Count - 1];
+                        if (CallbackMoveEnd != null) CallbackMoveEnd();
+                        Log("path end");
+                        path = null;
+                    }
+                    else
+                    {
+                        if (CallbackMoveTurn != null) CallbackMoveTurn();
+                        Log("path turn");
+                    }
+                }
             }
         }
 
-        public Vector3 TargetPosition { get; private set; }
+        public Vector3 Destination { get; private set; }
+
+        public Vector3 Direction { get { return currentDirection; } }
 
         public void SetDestination(Vector3 destPosition)
         {
-            if (destPosition != TargetPosition)
+            if (destPosition == Vector3.zero)
             {
-                TargetPosition = destPosition;
-                pathIndex = 0;
+                path = null;
+                if (CallbackMoveEnd != null) CallbackMoveEnd();
+                Log("path end");
+            }
+            else if (destPosition != Destination)
+            {
+                Destination = destPosition;
                 seeker.StartPath(transform.position, destPosition, OnPathComplete);
             }
         }
         private void OnPathComplete(Path p)
         {
-            if(!p.error)
+            if(!p.error && p.vectorPath.Count > 1)
+            {
                 path = p;
+                transform.position = path.vectorPath[0];
+                nextPathIndex = 1;
+                if (CallbackMoveStart != null) CallbackMoveStart();
+                Log("path start");
+            }
+        }
+
+        private void Log(string log)
+        {
+            if (EnableLog) BaseLogger.LogError(log);
         }
     }
 }

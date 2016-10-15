@@ -4,6 +4,14 @@ namespace Base
 {
     public enum Notifications
     {
-        None
+        None,
+
+        MONSTER_INIT,
+
+        #region Input
+
+        INPUT_MOUSE_CLICK,
+
+        #endregion
     }
 }

@@ -7,7 +7,14 @@ namespace Base
 {
     public abstract class Game : MonoBehaviour
     {
-        protected static Game instance;
+        public static Game instance;
+        public static Game Instance
+        {
+            get
+            {
+                return instance as Game;
+            }
+        }
 
         public Router Router = new Router();
 

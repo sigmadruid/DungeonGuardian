@@ -33,8 +33,7 @@ namespace Logic
 
             AstarPath.active.Scan();
 
-            GameObject characterPrefab = Resources.Load<GameObject>("Map/CharacterTest");
-            GameObject.Instantiate(characterPrefab);
+            DungeonGame.instance.Router.Notify(Notifications.MONSTER_INIT);
         }
     }
 }

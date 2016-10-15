@@ -11,7 +11,7 @@ namespace Base
         private List<Mediator> toAddList = new List<Mediator>();
         private List<Mediator> toRemoveList = new List<Mediator>();
 
-        public void Notify(Notifications notifyEnum, object param)
+        public void Notify(Notifications notifyEnum, object param = null)
         {
             int notifyId = (int)notifyEnum;
             if (mediatorDic.ContainsKey(notifyId))

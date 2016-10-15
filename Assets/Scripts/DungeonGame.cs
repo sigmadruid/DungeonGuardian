@@ -10,7 +10,7 @@ namespace Logic
 {
     public class DungeonGame : Game
     {
-        public static DungeonGame Instance
+        public new static DungeonGame Instance
         {
             get
             {
@@ -28,6 +28,7 @@ namespace Logic
         public override void OnInit()
         {
             InitManagers();
+            InitMediators();
             InitStages();
             Debug.Log("game starts");
         }
@@ -58,6 +59,11 @@ namespace Logic
         {
             StageManager.AddStage(new StageEntry());
             StageManager.AddStage(new StageBattle());
+        }
+
+        private void InitMediators()
+        {
+            Router.Add(new MonsterMediator());
         }
     }
 }

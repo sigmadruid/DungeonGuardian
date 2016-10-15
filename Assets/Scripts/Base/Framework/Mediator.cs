@@ -12,7 +12,7 @@ namespace Base
             return null;
         }
 
-        public virtual void OnNotify(Enum notification, object param)
+        public virtual void OnNotify(Notifications notification, object param)
         {
         }
     }
