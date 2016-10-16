@@ -6,72 +6,116 @@ using System.IO;
 
 using Base;
 
-namespace StaticData
+namespace Base
 {
     public static class CSVParser
     {
-		public static string CONFIG_PATH = Application.streamingAssetsPath + "/Configs/";
+        private static readonly string CONFIG_PATH = Application.streamingAssetsPath + "/Configs/";
 
-        public static List<string[]> LoadFile(string name)
+        private static string CSVName;
+		private static int rowIndex;
+        private static int colIndex;
+        private static List<string[]> dataStrList = new List<string[]>();
+
+        #region Flow Controller
+        public static void Init(string csvName)
+        {
+            CSVName = csvName;
+            rowIndex = 0;
+            colIndex = 0;
+            dataStrList.Clear();
+            LoadFile(csvName);
+        }
+        public static bool IsEndOfRow()
 		{
-			string path = CONFIG_PATH + name;
-            List<string[]> dataStrList = new List<string[]>();
+			return rowIndex == dataStrList.Count;
+		}
+        public static void NextLine()
+		{
+			rowIndex++;
+		}
 
-			if (File.Exists(path))
-			{
+        #endregion
+
+        private static void LoadFile(string csvName)
+        {
+            string path = CONFIG_PATH + csvName;
+
+            if (File.Exists(path))
+            {
                 StreamReader sr = new StreamReader(path, System.Text.UTF8Encoding.UTF8);
-				bool isFirstLine = true;
-				while (!sr.EndOfStream)
-				{
-					string line = sr.ReadLine();
-					if (isFirstLine)
-					{
-						isFirstLine = false;
-						continue;
-					}
-					char firstChar = line[0];
-					if (firstChar == ',')
-					{
-						continue;
-					}
-					string[] strArray = line.Split(',');
-					dataStrList.Add(strArray);
-				}
-				sr.Close();
+                bool isFirstLine = true;
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    if (isFirstLine)
+                    {
+                        isFirstLine = false;
+                        continue;
+                    }
+                    char firstChar = line[0];
+                    if (firstChar == ',')
+                    {
+                        continue;
+                    }
+                    string[] strArray = line.Split(',');
+                    dataStrList.Add(strArray);
+                }
+                sr.Close();
+
+                rowIndex = 0;
+            }
+            else
+            {
+                BaseLogger.LogError("Can't find config file: {0}", path);
+            }
+        }
+
+        #region Read Values
+
+        public static bool ReadBool()
+		{
+            string str = ReadNextStr();
+            if(str.ToLower() == "true" || str == "1")
+			{
+				return true;
 			}
 			else
 			{
-                BaseLogger.LogError("Can't find config file: {0}", path);
+				return false;
 			}
-            return dataStrList;
 		}
-
-        public static bool ReadBool(string content)
+        public static int ReadInt()
 		{
-            return content.ToLower() == "true" || content == "1";
+            string str = ReadNextStr();
+			return Convert.ToInt32(str);
 		}
-        public static int ReadInt(string content)
+        public static string ReadString()
 		{
-            return Convert.ToInt32(content);
+            string str = ReadNextStr();
+			return str;
 		}
-        public static float ReadFloat(string content)
+        public static float ReadFloat()
 		{
-            return Convert.ToSingle(content);
+            string value = ReadNextStr();
+			return Convert.ToSingle(value);
 		}
-        public static T ReadEnum<T>(string content)
+        public static T ReadEnum<T>()
 		{
-            if(!Enum.IsDefined(typeof(T), content))
+            string value = ReadNextStr();
+            if(!Enum.IsDefined(typeof(T), value))
 			{
-                BaseLogger.LogError("Parse error. content: " + content);
+                BaseLogger.LogError("Parse error. CSV: {0}, Col:{1}, Row:{2}", CSVName, colIndex - 1, rowIndex);
 			}
-            return ParseKey<T>(content);
+            return ParseKey<T>(value);
 		}
-        public static List<string> ReadStringList(string content)
+        public static List<string> ReadStringList()
 		{
+            string value = ReadNextStr();
 			List<string> list = new List<string>();
-            if (!string.IsNullOrEmpty(content))
+			if (!string.IsNullOrEmpty(value))
 			{
-                string[] strList = content.Split('#');
+				string[] strList = value.Split('#');
 				for (int i = 0; i < strList.Length; ++i)
 				{
 					string str = strList[i];
@@ -80,12 +124,13 @@ namespace StaticData
 			}
 			return list;
 		}
-        public static List<int> ReadIntList(string content)
+        public static List<int> ReadIntList()
 		{
+            string value = ReadNextStr();
 			List<int> list = new List<int>();
-            if (!string.IsNullOrEmpty(content))
+			if (!string.IsNullOrEmpty(value))
 			{
-                string[] strList = content.Split('#');
+				string[] strList = value.Split('#');
 				for (int i = 0; i < strList.Length; ++i)
 				{
 					string str = strList[i];
@@ -94,12 +139,13 @@ namespace StaticData
 			}
 			return list;
 		}
-        public static List<T> ReadEnumList<T>(string content)
+        public static List<T> ReadEnumList<T>()
 		{
+            string value = ReadNextStr();
 			List<T> list = new List<T>();
-            if (!string.IsNullOrEmpty(content))
+			if (!string.IsNullOrEmpty(value))
 			{
-                string[] strList = content.Split('#');
+				string[] strList = value.Split('#');
 				for (int i = 0; i < strList.Length; ++i)
 				{
 					string str = strList[i];
@@ -109,14 +155,15 @@ namespace StaticData
 			}
 			return list;
 		}
-        public static Dictionary<K, V> ReadDictionary<K, V>(string content)
+        public static Dictionary<K, V> ReadDictionary<K, V>()
         {
-            if (string.IsNullOrEmpty(content))
+            string value = ReadNextStr();
+            if (string.IsNullOrEmpty(value))
             {
                 return new Dictionary<K, V>();
             }
 
-            string[] valList = content.Split('#');
+            string[] valList = value.Split('#');
             Dictionary<K,V> dic = new Dictionary<K, V>();
             for(int i = 0; i < valList.Length; ++i)
             {
@@ -127,48 +174,49 @@ namespace StaticData
             }
             return dic;
         }
-        private static T ParseKey<T>(string content)
+        private static T ParseKey<T>(string str)
 		{
 //            T enumKey = (T)Enum.Parse(typeof(T), str);
             object resultKey = null;
             if (typeof(T) == typeof(int))
             {
-                resultKey = Convert.ToInt32(content);
+                resultKey = Convert.ToInt32(str);
             }
             else
             {
-                resultKey = Enum.Parse(typeof(T), content);
+                resultKey = Enum.Parse(typeof(T), str);
             }
             return (T)resultKey;
 		}
-        private static T ParseValue<T>(string content)
+        private static T ParseValue<T>(string str)
 		{
 			object resultVal = null;
 
             if(typeof(T) == typeof(int))
             {
-                resultVal = Convert.ToInt32(content);
+                resultVal = Convert.ToInt32(str);
             }
             else if(typeof(T) == typeof(float))
             {
-                resultVal = Convert.ToSingle(content);
+                resultVal = Convert.ToSingle(str);
             }
             else
             {
-                resultVal = content;
+                resultVal = str;
             }
 
 			return (T)resultVal;
 		}
 
-        public static Color ReadColor(string content)
+        public static Color ReadColor()
         {
-            if (string.IsNullOrEmpty(content))
+            string value = ReadNextStr();
+            if (string.IsNullOrEmpty(value))
             {
                 return Color.white;
             }
 
-            string[] colorList = content.Split('#');
+            string[] colorList = value.Split('#');
             Color color = new Color();
             color.r = Convert.ToSingle(colorList[0]);
             color.g = Convert.ToSingle(colorList[1]);
@@ -183,6 +231,15 @@ namespace StaticData
             }
             return color;
         }
+
+        private static string ReadNextStr()
+        {
+            string[] strArray = dataStrList[rowIndex];
+            string str = strArray[colIndex++];
+            return str;
+        }
+
+        #endregion
     }
 }
 

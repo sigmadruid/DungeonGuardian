@@ -18,6 +18,7 @@ namespace Logic
         #region Manager List
 
         public TaskManager TaskManager;
+        public DataManager DataManager;
         public InputManager InputManager;
         public StageManager StageManager;
 
@@ -29,26 +30,20 @@ namespace Logic
             InitMediators();
             InitStages();
         }
-        public override void OnDispose()
-        {
-            DisposeManagers();
-        }
         public override void OnUpdate()
         {
             TaskManager.Update();
+        }
+        public override void OnDispose()
+        {
         }
 
         private void InitManagers()
         {
             TaskManager.Init();
+            DataManager.Init();
             InputManager.Init();
             StageManager.Init();
-        }
-        private void DisposeManagers()
-        {
-            TaskManager.Dispose();
-            InputManager.Dispose();
-            StageManager.Dispose();
         }
         private void InitStages()
         {

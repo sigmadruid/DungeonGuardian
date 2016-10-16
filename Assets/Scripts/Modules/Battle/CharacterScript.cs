@@ -60,6 +60,11 @@ namespace Logic
             }
         }
 
+        public void EventTest(int i)
+        {
+            BaseLogger.LogError("idle event, {0}", i);
+        }
+
         #endregion
 
         #region Movement
