@@ -33,6 +33,7 @@ namespace Base
         public static void NextLine()
 		{
 			rowIndex++;
+            colIndex = 0;
 		}
 
         #endregion

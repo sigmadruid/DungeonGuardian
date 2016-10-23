@@ -120,14 +120,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.3902439
-        functionName: EventTest
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0.5
-        intParameter: 123
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

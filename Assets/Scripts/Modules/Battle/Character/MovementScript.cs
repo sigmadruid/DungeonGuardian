@@ -56,6 +56,7 @@ namespace Base
                     if (nextPathIndex == path.vectorPath.Count)
                     {
                         transform.position = path.vectorPath[path.vectorPath.Count - 1];
+                        IsMoving = false;
                         if (CallbackMoveEnd != null) CallbackMoveEnd();
                         Log("path end");
                         path = null;
@@ -69,6 +70,8 @@ namespace Base
             }
         }
 
+        public bool IsMoving { get; private set; }
+
         public Vector3 Destination { get; private set; }
 
         public Vector3 Direction { get { return currentDirection; } }
@@ -78,6 +81,7 @@ namespace Base
             if (destPosition == Vector3.zero)
             {
                 path = null;
+                IsMoving = false;
                 if (CallbackMoveEnd != null) CallbackMoveEnd();
                 Log("path end");
             }
@@ -92,8 +96,9 @@ namespace Base
             if(!p.error && p.vectorPath.Count > 1)
             {
                 path = p;
-                transform.position = path.vectorPath[0];
                 nextPathIndex = 1;
+                transform.position = path.vectorPath[0];
+                IsMoving = true;
                 if (CallbackMoveStart != null) CallbackMoveStart();
                 Log("path start");
             }

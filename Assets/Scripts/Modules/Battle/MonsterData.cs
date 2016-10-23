@@ -38,14 +38,14 @@ namespace Logic
                 kvDic[data.Kid] = data;
                 CSVParser.NextLine();
             }
-            BaseLogger.LogError("Monster Data Init)");
+            BaseLogger.LogError("Monster Data Init");
         }
 
         public static MonsterData Get(int kid)
         {
             if (!kvDic.ContainsKey(kid))
             {
-                BaseLogger.LogError("MonsterData doesn't contain key: " + kid.ToString());
+                BaseLogger.LogError("Monster Data doesn't contain key: " + kid.ToString());
             }
             return kvDic[kid];
         }

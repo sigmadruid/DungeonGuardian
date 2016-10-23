@@ -10,7 +10,8 @@ namespace Base
 
         #region Input
 
-        INPUT_MOUSE_CLICK,
+        INPUT_MOUSE_LEFT_CLICK,
+        INPUT_MOUSE_RIGHT_CLICK,
 
         #endregion
     }

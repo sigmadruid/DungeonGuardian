@@ -4,7 +4,8 @@ namespace StaticData
 {
 	public enum IDType
 	{
-		Monster,
+		Monster = 1,
+        Animator = 2,
 	}
 
     public class IDManager

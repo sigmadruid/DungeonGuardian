@@ -1,0 +1,5 @@
+Kid,CharacterKid,Name,Priority,EventTime,ParamType,ParamList
+200001,100001,Base.idle,0,0,None,,
+200002,100001,Base.run,0,0,None,,
+200003,100001,Base.attack01,1,0.35,HitArea,rectangle#1#0.5,
+200004,100001,Base.die,2,0,None,,
