@@ -26,7 +26,7 @@ namespace Logic
             {
                 case Notifications.MONSTER_INIT:
                 {
-                    Vector3 startPosition = new Vector3(-1.4f, 0.58f, 7.7f);
+                    Vector3 startPosition = new Vector3(-1.4f, 0.5f, 7.7f);
                     monster = Monster.Create(100001, startPosition);
                     break;
                 }
