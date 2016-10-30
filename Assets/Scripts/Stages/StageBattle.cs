@@ -25,8 +25,7 @@ namespace Logic
 
         private void InitCoroutine()
         {
-            GameObject mapPrefab = Resources.Load<GameObject>("Map/MapTest");
-            GameObject.Instantiate(mapPrefab);
+            ResourceManager.Instance.CreateGameObject("Map/MapTest");
 
             AstarPath.active.Scan();
 

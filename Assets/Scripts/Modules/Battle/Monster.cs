@@ -16,8 +16,7 @@ namespace Logic
             MonsterData monsterData = MonsterData.Get(kid);
             Dictionary<string, AnimatorData> animatorDataDic = AnimatorData.GetSet(monsterData.Kid);
 
-            GameObject characterPrefab = Resources.Load<GameObject>("Monsters/" + monsterData.Prefab);
-            monster.Script = GameObject.Instantiate(characterPrefab).GetComponent<CharacterScript>();
+            monster.Script = ResourceManager.Instance.CreateAsset<CharacterScript>("Monsters/" + monsterData.Prefab);
             monster.Script.Init(position, 0, animatorDataDic);
             monster.Script.CallbackUpdate = monster.OnUpdate;
             monster.Script.CallbackMoveStart = monster.OnMoveStart;
