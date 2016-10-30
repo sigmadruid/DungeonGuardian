@@ -18,7 +18,7 @@ namespace Base
             base.Dispose();
         }
 
-        public override void Update()
+        public override void OnUpdate()
         {
             if (!HasInitialized) return;
 

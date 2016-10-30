@@ -19,7 +19,7 @@ namespace Base
             HasInitialized = false;
         }
 
-        public virtual void Update()
+        public virtual void OnUpdate()
         {
         }
 

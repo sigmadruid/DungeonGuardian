@@ -15,14 +15,9 @@ namespace Logic
             get { return instance as DungeonGame; }
         }
 
-        #region Manager List
-
-        public TaskManager TaskManager;
-        public DataManager DataManager;
-        public InputManager InputManager;
         public StageManager StageManager;
 
-        #endregion
+        private BaseManager[] managerList;
 
         public override void OnInit()
         {
@@ -32,18 +27,29 @@ namespace Logic
         }
         public override void OnUpdate()
         {
-            TaskManager.Update();
+            for (int i = 0; i < managerList.Length; ++i)
+            {
+                managerList[i].OnUpdate();
+            }
+
         }
         public override void OnDispose()
         {
+            for (int i = 0; i < managerList.Length; ++i)
+            {
+                managerList[i].Dispose();
+            }
         }
 
         private void InitManagers()
         {
-            TaskManager.Init();
-            DataManager.Init();
-            InputManager.Init();
-            StageManager.Init();
+            managerList = new BaseManager[transform.childCount];
+            for (int i = 0; i < transform.childCount; ++i)
+            {
+                BaseManager manager = transform.GetChild(i).GetComponent<BaseManager>();
+                manager.Init();
+                managerList[i] = manager;
+            }
         }
         private void InitStages()
         {

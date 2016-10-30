@@ -27,7 +27,7 @@ namespace Base
         private Dictionary<TaskEnum, GameTask> taskDic = new Dictionary<TaskEnum, GameTask>();
 		private	Dictionary<TaskEnum, GameTask>.Enumerator enumerator;
 		
-        public override void Update()
+        public override void OnUpdate()
 		{
 			enumerator = taskDic.GetEnumerator();
 			while(enumerator.MoveNext())
