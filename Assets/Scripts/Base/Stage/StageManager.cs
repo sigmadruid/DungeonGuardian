@@ -8,7 +8,15 @@ namespace Base
 {
     public class StageManager : BaseManager
     {
-        public static new StageManager Instance { get { return instance as StageManager; } }
+        public static StageManager Instance { get; private set; }
+        void Awake()
+        {
+            Instance = this;
+        }
+        void OnDestory()
+        {
+            Instance = null;
+        }
 
         private Dictionary<StageEnum, Stage> stageDic = new Dictionary<StageEnum, Stage>();
 

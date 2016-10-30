@@ -24,7 +24,15 @@ namespace Base
 
     public class TaskManager : BaseManager
 	{
-        public static new TaskManager Instance { get { return instance as TaskManager; } }
+        public static TaskManager Instance { get; private set; }
+        void Awake()
+        {
+            Instance = this;
+        }
+        void OnDestory()
+        {
+            Instance = null;
+        }
 
         private Dictionary<TaskEnum, GameTask> taskDic = new Dictionary<TaskEnum, GameTask>();
 		private	Dictionary<TaskEnum, GameTask>.Enumerator enumerator;

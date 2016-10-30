@@ -6,7 +6,15 @@ namespace Base
 {
     public class InputManager : BaseManager
     {
-        public static new InputManager Instance { get { return instance as InputManager; } }
+        public static InputManager Instance { get; private set; }
+        void Awake()
+        {
+            Instance = this;
+        }
+        void OnDestory()
+        {
+            Instance = null;
+        }
 
         public Vector3 MousePosition { get; private set; }
 

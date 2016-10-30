@@ -5,7 +5,15 @@ namespace Base
 {
     public class DataManager : BaseManager
     {
-        public static new DataManager Instance { get { return instance as DataManager; } }
+        public static DataManager Instance { get; private set; }
+        void Awake()
+        {
+            Instance = this;
+        }
+        void OnDestory()
+        {
+            Instance = null;
+        }
 
         public override void OnInit()
         {
@@ -15,7 +23,7 @@ namespace Base
             Type[] types = Assembly.GetAssembly(baseDataType).GetTypes();
             foreach (Type type in types)
             {
-                if (type.BaseType == baseDataType)
+                if (type.BaseType == baseDataType || type.BaseType.BaseType == baseDataType)
                 {
                     MethodInfo method = type.GetMethod("Init");
                     method.Invoke(null, null);

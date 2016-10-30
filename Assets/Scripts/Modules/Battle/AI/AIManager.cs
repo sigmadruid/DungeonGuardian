@@ -6,7 +6,15 @@ namespace Logic
 {
     public class AIManager : BaseManager
     {
-        public static new AIManager Instance { get { return instance as AIManager; } }
+        public static AIManager Instance { get; private set; }
+        void Awake()
+        {
+            Instance = this;
+        }
+        void OnDestory()
+        {
+            Instance = null;
+        }
     }
 }
 
