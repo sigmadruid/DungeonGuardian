@@ -325,6 +325,7 @@ GameObject:
   - 114: {fileID: 114000013060424696}
   - 114: {fileID: 114000013861787584}
   - 114: {fileID: 114000010834824878}
+  - 114: {fileID: 114000010384421002}
   m_Layer: 0
   m_Name: Monster_1
   m_TagString: Untagged
@@ -962,6 +963,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010384421002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012297971870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority: 1
 --- !u!114 &114000010834824878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -990,7 +1003,7 @@ MonoBehaviour:
   drawGizmos: 1
   detailedGizmos: 0
   startEndModifier:
-    priority: 1
+    priority: 2
     addPoints: 0
     exactStartPoint: 3
     exactEndPoint: 3

@@ -8,7 +8,7 @@ using Base;
 namespace Logic
 {
     [RequireComponent(typeof(MovementScript))]
-    public class CharacterScript : EntityScript
+    public class FighterScript : EntityScript
     {
         public bool EnableLog = false;
 

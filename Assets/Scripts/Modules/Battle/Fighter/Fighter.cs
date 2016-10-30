@@ -6,11 +6,11 @@ using Base;
 
 namespace Logic
 {
-    public class Character : Entity
+    public class Fighter : Entity
     {
-        public new CharacterScript Script
+        public new FighterScript Script
         {
-            get { return script as CharacterScript; }
+            get { return script as FighterScript; }
             protected set { script = value; }
         }
 
