@@ -5,7 +5,7 @@ using Base;
 
 namespace Logic
 {
-    public class MonsterData : BaseData
+    public class MonsterData : EntityData
     {
         #region Properties
 
@@ -17,13 +17,22 @@ namespace Logic
 
         public string Icon;
 
-        #endregion;
+        public List<int> SkillList;
+
+        #endregion
+
+        public override string GetResPath()
+        {
+            if (resPath == null)
+                resPath = "Monsters/" + Prefab;
+            return resPath;
+        }
 
         #region Data Controlling Methods
 
         private static Dictionary<int, MonsterData> kvDic = new Dictionary<int, MonsterData>();
 
-        public static void Init()
+        public new static void Init()
         {
             kvDic.Clear();
 
@@ -35,13 +44,14 @@ namespace Logic
                 data.Name = CSVParser.ReadString();
                 data.Prefab = CSVParser.ReadString();
                 data.Icon = CSVParser.ReadString();
+                data.SkillList = CSVParser.ReadIntList();
                 kvDic[data.Kid] = data;
                 CSVParser.NextLine();
             }
             BaseLogger.LogError("Monster Data Init");
         }
 
-        public static MonsterData Get(int kid)
+        public new static MonsterData Get(int kid)
         {
             if (!kvDic.ContainsKey(kid))
             {

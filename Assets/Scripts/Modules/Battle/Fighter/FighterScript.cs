@@ -58,10 +58,10 @@ namespace Logic
             LogTest("run");
             animator.SetBool(AnimatorUtils.PARAM_IS_MOVING, true);
         }
-        public void Attack(Action start, Action effect, Action end)
+        public void DoSkill(int index)
         {
-            LogTest("attack");
-            animator.SetTrigger(AnimatorUtils.PARAM_ATTACK);
+            LogTest("skill");
+            animator.SetTrigger(AnimatorUtils.PARAM_SKILL + (index + 1).ToString());
         }
         public void Die()
         {
@@ -83,7 +83,7 @@ namespace Logic
             if (!animatorDataDic.ContainsKey(stateName)) 
                 LogTest("Doesn't contain state: " + stateName);
 
-            BaseLogger.LogError("Attack !");
+            BaseLogger.LogError("Effect!");
         }
         public void OnStateEnd(string stateName)
         {

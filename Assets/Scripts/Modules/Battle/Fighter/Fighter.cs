@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using System;
+using System.Collections.Generic;
 
 using Base;
 
@@ -14,15 +15,28 @@ namespace Logic
             protected set { script = value; }
         }
 
+        protected Skill currentSkill;
+        public List<string> SkillUidList = new List<string>();
+
         public void OnUpdate()
         {
-            if (Script.IsMoving)
+            if (currentSkill == null)
             {
-                Script.Run();
+                if (Script.IsMoving)
+                {
+                    Script.Run();
+                }
+                else
+                {
+                    Script.Idle();
+                }
             }
             else
             {
-                Script.Idle();
+                if (currentSkill != null && currentSkill.HasFinished)
+                {
+                    currentSkill = null;
+                }
             }
         }
 
@@ -42,11 +56,19 @@ namespace Logic
         {
         }
 
-        public void Attack()
+        public void CastSkill(int index)
         {
-            Script.Attack(OnAttackStart, OnAttackEvent, OnAttackEnd);
-            Script.SetDestination(Vector3.zero);
+            if (currentSkill == null)
+            {
+                string uid = SkillUidList[index];
+                currentSkill = SkillManager.Instance.GetSkill(uid);
+                currentSkill.Start();
+
+                Script.DoSkill(index);
+                Script.SetDestination(Vector3.zero);
+            }
         }
+
         protected virtual void OnAttackStart()
         {
         }

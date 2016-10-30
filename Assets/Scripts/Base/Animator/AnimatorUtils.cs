@@ -12,7 +12,7 @@ namespace Base
         public const string STATE_DIE = "Base.die";
 
         public const string PARAM_IS_MOVING = "isMoving";
-        public const string PARAM_ATTACK = "attack";
+        public const string PARAM_SKILL = "skill_";
         public const string PARAM_DIE = "die";
 
         public static string GetState(string trigger)

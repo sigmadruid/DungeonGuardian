@@ -6,6 +6,7 @@ namespace StaticData
 	{
 		Monster = 1,
         Animator = 2,
+        Skill = 3,
 	}
 
     public class IDManager

@@ -1,0 +1,3 @@
+Kid,ToEnemy,ValueRatio,EffectTime,CD,Duration,Range,BulletKid,ScopeRadius,CanMove
+300001,TRUE,1,0.3,0,1,-1,0,-1,FALSE
+300002,TRUE,3,0.3,0,1,-1,0,-1,FALSE

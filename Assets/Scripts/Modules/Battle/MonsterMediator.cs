@@ -38,7 +38,8 @@ namespace Logic
                 }
                 case Notifications.INPUT_MOUSE_RIGHT_CLICK:
                 {
-                    monster.Attack();
+                    int skillIndex = 0;
+                    monster.CastSkill(skillIndex);
                     break;
                 }
             }
