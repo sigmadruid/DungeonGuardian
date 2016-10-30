@@ -24,10 +24,12 @@ namespace Base
 
     public class TaskManager : BaseManager
 	{
+        public static new TaskManager Instance { get { return instance as TaskManager; } }
+
         private Dictionary<TaskEnum, GameTask> taskDic = new Dictionary<TaskEnum, GameTask>();
 		private	Dictionary<TaskEnum, GameTask>.Enumerator enumerator;
 		
-        public override void OnUpdate()
+        public override void OnUpdate(float deltaTime)
 		{
 			enumerator = taskDic.GetEnumerator();
 			while(enumerator.MoveNext())

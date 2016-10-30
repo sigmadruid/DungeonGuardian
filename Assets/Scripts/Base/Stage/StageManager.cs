@@ -8,18 +8,20 @@ namespace Base
 {
     public class StageManager : BaseManager
     {
+        public static new StageManager Instance { get { return instance as StageManager; } }
+
         private Dictionary<StageEnum, Stage> stageDic = new Dictionary<StageEnum, Stage>();
 
-        public override void Init()
+        public override void OnInit()
         {
-            base.Init();
+            base.OnInit();
             SceneManager.sceneLoaded += OnStageLoaded;
             SceneManager.sceneUnloaded += OnStageUnloaded;
         }
 
-        public override void Dispose()
+        public override void OnDispose()
         {
-            base.Dispose();
+            base.OnDispose();
             SceneManager.sceneLoaded -= OnStageLoaded;
             SceneManager.sceneUnloaded -= OnStageUnloaded;
         }

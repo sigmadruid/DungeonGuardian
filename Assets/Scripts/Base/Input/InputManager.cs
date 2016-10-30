@@ -6,19 +6,21 @@ namespace Base
 {
     public class InputManager : BaseManager
     {
+        public static new InputManager Instance { get { return instance as InputManager; } }
+
         public Vector3 MousePosition { get; private set; }
 
-        public override void Init()
+        public override void OnInit()
         {
-            base.Init();
+            base.OnInit();
         }
 
-        public override void Dispose()
+        public override void OnDispose()
         {
-            base.Dispose();
+            base.OnDispose();
         }
 
-        public override void OnUpdate()
+        public override void OnUpdate(float deltaTime)
         {
             if (!HasInitialized) return;
 

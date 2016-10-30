@@ -25,11 +25,11 @@ namespace Logic
             InitMediators();
             InitStages();
         }
-        public override void OnUpdate()
+        public override void OnUpdate(float deltaTime)
         {
             for (int i = 0; i < managerList.Length; ++i)
             {
-                managerList[i].OnUpdate();
+                managerList[i].OnUpdate(deltaTime);
             }
 
         }
@@ -37,7 +37,7 @@ namespace Logic
         {
             for (int i = 0; i < managerList.Length; ++i)
             {
-                managerList[i].Dispose();
+                managerList[i].OnDispose();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Logic
             for (int i = 0; i < transform.childCount; ++i)
             {
                 BaseManager manager = transform.GetChild(i).GetComponent<BaseManager>();
-                manager.Init();
+                manager.OnInit();
                 managerList[i] = manager;
             }
         }

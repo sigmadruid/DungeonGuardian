@@ -38,11 +38,11 @@ namespace Base
         void Update()
         {
             if (!hasInitialized) return;
-            OnUpdate();
+            OnUpdate(Time.deltaTime);
         }
         
         public abstract void OnInit();
-        public abstract void OnUpdate();
+        public abstract void OnUpdate(float deltaTime);
         public abstract void OnDispose();
 
         #region Stage Management

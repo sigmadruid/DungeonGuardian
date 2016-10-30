@@ -1,12 +1,12 @@
 ﻿using System;
 
+using Base;
+
 namespace Logic
 {
-    public class AIManager
+    public class AIManager : BaseManager
     {
-        public AIManager()
-        {
-        }
+        public static new AIManager Instance { get { return instance as AIManager; } }
     }
 }
 

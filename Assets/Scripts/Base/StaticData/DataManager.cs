@@ -5,9 +5,11 @@ namespace Base
 {
     public class DataManager : BaseManager
     {
-        public override void Init()
+        public static new DataManager Instance { get { return instance as DataManager; } }
+
+        public override void OnInit()
         {
-            base.Init();
+            base.OnInit();
 
             Type baseDataType = typeof(BaseData);
             Type[] types = Assembly.GetAssembly(baseDataType).GetTypes();
