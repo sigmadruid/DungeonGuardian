@@ -7,6 +7,7 @@ namespace StaticData
 		Monster = 1,
         Animator = 2,
         Skill = 3,
+        AI = 4,
 	}
 
     public class IDManager

@@ -52,7 +52,6 @@ namespace Base
                 kvDic[data.Kid] = data;
                 CSVParser.NextLine();
             }
-            BaseLogger.LogError("Animator Data Init");
         }
 
         public static Dictionary<string, AnimatorData> GetSet(int characterKid)

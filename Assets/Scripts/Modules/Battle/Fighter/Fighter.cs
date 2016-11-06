@@ -88,6 +88,7 @@ namespace Logic
         {
             Fighter fighter = new Fighter();
 
+            fighter.Uid = Guid.NewGuid().ToString();
             fighter.Data = FighterData.Get(kid);
             Dictionary<string, AnimatorData> animatorDataDic = AnimatorData.GetSet(fighter.Data.Kid);
             for (int i = 0; i < fighter.Data.SkillList.Count; ++i)
@@ -102,10 +103,17 @@ namespace Logic
             fighter.Script.CallbackUpdate = fighter.OnUpdate;
             fighter.Script.CallbackMoveStart = fighter.OnMoveStart;
             fighter.Script.CallbackMoveEnd = fighter.OnMoveEnd;
+
+            AIManager.Instance.AddAI(fighter);
+            FighterManager.Instance.AddFighter(fighter);
+
             return fighter;
         }
         public static void Dispose(Fighter fighter)
         {
+            AIManager.Instance.RemoveAI(fighter.Uid);
+            FighterManager.Instance.RemoveFighter(fighter.Uid);
+
             for (int i = 0; i < fighter.SkillUidList.Count; ++i)
             {
                 string uid = fighter.SkillUidList[i];

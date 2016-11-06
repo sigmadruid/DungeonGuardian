@@ -37,7 +37,7 @@ namespace Logic
             }
         }
 
-        public void Dispose()
+        public void Recycle()
         {
         }
 
@@ -62,9 +62,9 @@ namespace Logic
             return skill;
         }
 
-        public static void Dispose(Skill skill)
+        public static void Recycle(Skill skill)
         {
-            skill.Dispose();
+            skill.Recycle();
             skill.Data = null;
         }
     }

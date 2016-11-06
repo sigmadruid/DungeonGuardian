@@ -55,7 +55,6 @@ namespace Logic
                 kvDic[data.Kid] = data;
                 CSVParser.NextLine();
             }
-            BaseLogger.LogError("Skill Data Init");
         }
 
         public static SkillData Get(int kid)

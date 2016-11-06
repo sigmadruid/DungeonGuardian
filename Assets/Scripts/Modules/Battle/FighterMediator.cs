@@ -28,6 +28,8 @@ namespace Logic
                 {
                     Vector3 startPosition = new Vector3(-1.4f, 0.5f, 7.7f);
                     fighter = Fighter.Create(100001, startPosition);
+                    Vector3 startPosition1 = new Vector3(7.2f, 0.5f, -9.13f);
+                    fighter = Fighter.Create(100000, startPosition1);
                     break;
                 }
                 case Notifications.INPUT_MOUSE_LEFT_CLICK:
