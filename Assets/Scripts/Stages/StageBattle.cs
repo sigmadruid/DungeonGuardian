@@ -29,7 +29,7 @@ namespace Logic
 
             AstarPath.active.Scan();
 
-            Router.Instance.Notify(Notifications.MONSTER_INIT);
+            Router.Instance.Notify(Notifications.FIGHTER_INIT);
         }
     }
 }

@@ -9,6 +9,12 @@ namespace Logic
 {
     public class Fighter : Entity
     {
+        public new FighterData Data
+        {
+            get { return data as FighterData;}
+            set { data = value; }
+        }
+
         public new FighterScript Script
         {
             get { return script as FighterScript; }
@@ -33,6 +39,7 @@ namespace Logic
             }
             else
             {
+                
                 if (currentSkill != null && currentSkill.HasFinished)
                 {
                     currentSkill = null;
@@ -42,9 +49,7 @@ namespace Logic
 
         public void Move(Vector3 position)
         {
-            //For temp use.
-            if (!Script.IsAttacking)
-                Script.SetDestination(position, OnMoveStart, OnMoveTurn, OnMoveEnd);
+            Script.SetDestination(position, OnMoveStart, OnMoveTurn, OnMoveEnd);
         }
         protected virtual void OnMoveStart()
         {
@@ -77,6 +82,40 @@ namespace Logic
         }
         protected virtual void OnAttackEnd()
         {
+        }
+
+        public static Fighter Create(int kid, Vector3 position)
+        {
+            Fighter fighter = new Fighter();
+
+            fighter.Data = FighterData.Get(kid);
+            Dictionary<string, AnimatorData> animatorDataDic = AnimatorData.GetSet(fighter.Data.Kid);
+            for (int i = 0; i < fighter.Data.SkillList.Count; ++i)
+            {
+                int skillKid = fighter.Data.SkillList[i];
+                string uid = SkillManager.Instance.AddSkill(skillKid); 
+                fighter.SkillUidList.Add(uid);
+            }
+
+            fighter.Script = ResourceManager.Instance.CreateAsset<FighterScript>(fighter.Data.GetResPath());
+            fighter.Script.Init(position, 0, animatorDataDic);
+            fighter.Script.CallbackUpdate = fighter.OnUpdate;
+            fighter.Script.CallbackMoveStart = fighter.OnMoveStart;
+            fighter.Script.CallbackMoveEnd = fighter.OnMoveEnd;
+            return fighter;
+        }
+        public static void Dispose(Fighter fighter)
+        {
+            for (int i = 0; i < fighter.SkillUidList.Count; ++i)
+            {
+                string uid = fighter.SkillUidList[i];
+                SkillManager.Instance.RemoveSkill(uid);
+            }
+            fighter.SkillUidList.Clear();
+            fighter.Data = null;
+            fighter.Script.CallbackUpdate = null;
+            //            ResourceManager.Instance.RecycleAsset(monster.Script.gameObject);
+            fighter.Script = null;
         }
     }
 }

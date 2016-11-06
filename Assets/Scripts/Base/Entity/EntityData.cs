@@ -15,7 +15,7 @@ namespace Base
         public static void Init()
         {
         }
-        public new static EntityData Get(int kid)
+        public static EntityData Get(int kid)
         {
             return null;
         }

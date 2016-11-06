@@ -6,15 +6,15 @@ using Base;
 
 namespace Logic
 {
-    public class MonsterMediator : Mediator
+    public class FighterMediator : Mediator
     {
-        private Monster monster;
+        private Fighter fighter;
 
         public override Notifications[] GetInterestedNotifications()
         {
             return new Notifications[]
             {
-                Notifications.MONSTER_INIT,
+                Notifications.FIGHTER_INIT,
                 Notifications.INPUT_MOUSE_LEFT_CLICK,
                 Notifications.INPUT_MOUSE_RIGHT_CLICK,
             };
@@ -24,22 +24,22 @@ namespace Logic
         {
             switch(notification)
             {
-                case Notifications.MONSTER_INIT:
+                case Notifications.FIGHTER_INIT:
                 {
                     Vector3 startPosition = new Vector3(-1.4f, 0.5f, 7.7f);
-                    monster = Monster.Create(100001, startPosition);
+                    fighter = Fighter.Create(100001, startPosition);
                     break;
                 }
                 case Notifications.INPUT_MOUSE_LEFT_CLICK:
                 {
                     Vector3 destPosition = (Vector3)param;
-                    monster.Move(destPosition);
+                    fighter.Move(destPosition);
                     break;
                 }
                 case Notifications.INPUT_MOUSE_RIGHT_CLICK:
                 {
                     int skillIndex = 0;
-                    monster.CastSkill(skillIndex);
+                    fighter.CastSkill(skillIndex);
                     break;
                 }
             }

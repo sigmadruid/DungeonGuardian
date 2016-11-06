@@ -69,14 +69,10 @@ namespace Logic
             animator.SetTrigger(AnimatorUtils.PARAM_DIE);
         }
 
-        public bool IsAttacking;//For temp use.
         public void OnStateStart(string stateName)
         {
             if (!animatorDataDic.ContainsKey(stateName)) 
                 LogTest("Doesn't contain state: " + stateName);
-
-            if (stateName == AnimatorUtils.STATE_ATTACK01)
-                IsAttacking = true;
         }
         public void OnStateEffect(string stateName)
         {
@@ -89,9 +85,6 @@ namespace Logic
         {
             if (!animatorDataDic.ContainsKey(stateName)) 
                 LogTest("Doesn't contain state: " + stateName);
-
-            if (stateName == AnimatorUtils.STATE_ATTACK01)
-                IsAttacking = false;
         }
 
         #endregion

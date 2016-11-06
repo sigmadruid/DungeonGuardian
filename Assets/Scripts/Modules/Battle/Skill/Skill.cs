@@ -23,8 +23,6 @@ namespace Logic
 
         public void Update(float deltaTime)
         {
-            if (HasFinished) return;
-
             timer += deltaTime;
             if (!HasExecuted && timer > Data.EffectTime)
             {

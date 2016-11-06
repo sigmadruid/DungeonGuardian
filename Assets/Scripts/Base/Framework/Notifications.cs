@@ -6,7 +6,7 @@ namespace Base
     {
         None,
 
-        MONSTER_INIT,
+        FIGHTER_INIT,
 
         #region Input
 

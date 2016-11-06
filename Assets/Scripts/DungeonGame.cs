@@ -58,7 +58,7 @@ namespace Logic
         }
         private void InitMediators()
         {
-            Router.Instance.Add(new MonsterMediator());
+            Router.Instance.Add(new FighterMediator());
         }
     }
 }

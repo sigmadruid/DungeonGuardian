@@ -5,53 +5,57 @@ using Base;
 
 namespace Logic
 {
-    public class MonsterData : EntityData
+    public class FighterData : EntityData
     {
         #region Properties
 
-        public int Kid;
-
         public string Name;
-
         public string Prefab;
-
         public string Icon;
 
         public List<int> SkillList;
+        public int HP;
+        public int Attack;
+        public int Defense;
+        public int Speed;
 
         #endregion
 
         public override string GetResPath()
         {
             if (resPath == null)
-                resPath = "Monsters/" + Prefab;
+                resPath = "Fighters/" + Prefab;
             return resPath;
         }
 
         #region Data Controlling Methods
 
-        private static Dictionary<int, MonsterData> kvDic = new Dictionary<int, MonsterData>();
+        private static Dictionary<int, FighterData> kvDic = new Dictionary<int, FighterData>();
 
         public new static void Init()
         {
             kvDic.Clear();
 
-            CSVParser.Init("Monster.csv");
+            CSVParser.Init("Fighter.csv");
             while(!CSVParser.IsEndOfRow())
             {
-                MonsterData data = new MonsterData();
+                FighterData data = new FighterData();
                 data.Kid = CSVParser.ReadInt();
                 data.Name = CSVParser.ReadString();
                 data.Prefab = CSVParser.ReadString();
                 data.Icon = CSVParser.ReadString();
                 data.SkillList = CSVParser.ReadIntList();
+                data.HP = CSVParser.ReadInt();
+                data.Attack = CSVParser.ReadInt();
+                data.Defense = CSVParser.ReadInt();
+                data.Speed = CSVParser.ReadInt();
                 kvDic[data.Kid] = data;
                 CSVParser.NextLine();
             }
-            BaseLogger.LogError("Monster Data Init");
+            BaseLogger.LogError("Fighter Data Init");
         }
 
-        public new static MonsterData Get(int kid)
+        public new static FighterData Get(int kid)
         {
             if (!kvDic.ContainsKey(kid))
             {

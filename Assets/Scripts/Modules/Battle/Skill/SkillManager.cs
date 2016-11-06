@@ -28,7 +28,8 @@ namespace Logic
         {
             foreach(Skill skill in skillDic.Values)
             {
-                skill.Update(deltaTime);
+                if (!skill.HasFinished)
+                    skill.Update(deltaTime);
             }
         }
 
