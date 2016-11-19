@@ -29,6 +29,10 @@ namespace Logic
                 {
                     Attack(enemy);
                 }
+                else
+                {
+                    Idle();
+                }
             }
             else
             {
@@ -36,9 +40,13 @@ namespace Logic
                 {
                     Flee(enemy);
                 }
-                else
+                else if (AIUtils.NearBy(enemy.WorldPosition, ControlledFighter.WorldPosition, Data.SeekRadius))
                 {
                     Attack(enemy);
+                }
+                else
+                {
+                    Idle();
                 }
             }
         }
@@ -47,6 +55,10 @@ namespace Logic
             ControlledFighter = null;
         }
 
+        private void Idle()
+        {
+            ControlledFighter.Move(Vector3.zero);
+        }
         private void Attack(Fighter enemy)
         {
             if (AIUtils.FarFrom(enemy.WorldPosition, ControlledFighter.WorldPosition, ControlledFighter.Data.Range))

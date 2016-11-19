@@ -20,7 +20,6 @@ namespace Logic
             HasFinished = true;
             HasExecuted = true;
         }
-
         public void Update(float deltaTime)
         {
             timer += deltaTime;
@@ -36,8 +35,7 @@ namespace Logic
                 HasFinished = true;
             }
         }
-
-        public void Recycle()
+        public void Dispose()
         {
         }
 
@@ -47,7 +45,6 @@ namespace Logic
             HasFinished = false;
             HasExecuted = false;
         }
-
         private void Execute()
         {
             BaseLogger.LogError("skill executed!");
@@ -61,10 +58,9 @@ namespace Logic
             skill.Init();
             return skill;
         }
-
         public static void Recycle(Skill skill)
         {
-            skill.Recycle();
+            skill.Dispose();
             skill.Data = null;
         }
     }

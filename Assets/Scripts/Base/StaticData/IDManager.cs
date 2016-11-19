@@ -8,6 +8,7 @@ namespace StaticData
         Animator = 2,
         Skill = 3,
         AI = 4,
+        Buff = 5,
 	}
 
     public class IDManager
