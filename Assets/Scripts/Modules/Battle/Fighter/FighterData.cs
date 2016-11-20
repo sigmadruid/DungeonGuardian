@@ -16,9 +16,11 @@ namespace Logic
         public string Icon;
 
         public List<int> SkillList;
-        public int HP;
-        public int Attack;
-        public int Defense;
+        public float HP;
+        public float Attack;
+        public float Defense;
+        public float CritRate;
+        public float CritDamage;
         public float Speed;
         public float Range;
 
@@ -51,9 +53,11 @@ namespace Logic
                 data.Prefab = CSVParser.ReadString();
                 data.Icon = CSVParser.ReadString();
                 data.SkillList = CSVParser.ReadIntList();
-                data.HP = CSVParser.ReadInt();
-                data.Attack = CSVParser.ReadInt();
-                data.Defense = CSVParser.ReadInt();
+                data.HP = CSVParser.ReadFloat();
+                data.Attack = CSVParser.ReadFloat();
+                data.Defense = CSVParser.ReadFloat();
+                data.CritRate = CSVParser.ReadFloat();
+                data.CritDamage = CSVParser.ReadFloat();
                 data.Speed = CSVParser.ReadFloat();
                 data.Range = CSVParser.ReadFloat();
                 data.AIKid = CSVParser.ReadInt();

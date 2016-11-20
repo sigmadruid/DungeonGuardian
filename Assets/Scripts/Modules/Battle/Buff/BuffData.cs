@@ -13,11 +13,13 @@ namespace Logic
 
         public float Duration;
 
-        public float HPAdditiveRatio;
-        public float AttackAdditiveRatio;
-        public float DefenseAdditiveRatio;
-        public float SpeedAdditiveRatio;
-        public float RangeAdditiveRatio;
+        public float HP;
+        public float Attack;
+        public float Defense;
+        public float CritiRate;
+        public float CritiDamage;
+        public float Speed;
+        public float Range;
 
         #endregion
 
@@ -35,11 +37,13 @@ namespace Logic
                 BuffData data = new BuffData();
                 data.Kid = CSVParser.ReadInt();
                 data.Duration = CSVParser.ReadFloat();
-                data.HPAdditiveRatio = CSVParser.ReadFloat();
-                data.AttackAdditiveRatio = CSVParser.ReadFloat();
-                data.DefenseAdditiveRatio = CSVParser.ReadFloat();
-                data.SpeedAdditiveRatio = CSVParser.ReadFloat();
-                data.RangeAdditiveRatio = CSVParser.ReadFloat();
+                data.HP = CSVParser.ReadFloat();
+                data.Attack = CSVParser.ReadFloat();
+                data.Defense = CSVParser.ReadFloat();
+                data.CritiRate = CSVParser.ReadFloat();
+                data.CritiDamage = CSVParser.ReadFloat();
+                data.Speed = CSVParser.ReadFloat();
+                data.Range = CSVParser.ReadFloat();
                 kvDic[data.Kid] = data;
                 CSVParser.NextLine();
             }
