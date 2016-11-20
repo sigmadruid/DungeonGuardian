@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Base;
 
@@ -14,6 +15,8 @@ namespace Logic
         public bool HasExecuted { get; private set; }
 
         private float timer = 0;
+        private Fighter caster;
+        private LinkedList<Fighter> targetList;
 
         public void Init()
         {
@@ -39,15 +42,29 @@ namespace Logic
         {
         }
 
-        public void Start()
+        public void Start(Fighter caster, LinkedList<Fighter> targetList)
         {
             timer = 0;
+            this.caster = caster;
+            this.targetList = targetList;
+
             HasFinished = false;
             HasExecuted = false;
         }
         private void Execute()
         {
-            BaseLogger.LogError("skill executed!");
+            var enumerator = targetList.GetEnumerator(); 
+            while (enumerator.MoveNext())
+            {
+                Fighter target = enumerator.Current;
+                if (!target.Info.IsAlive)
+                    continue;
+                //TODO: Move these calculation to a battle proxy
+                float baseValue = caster.Info.GetValue(BattleAttribute.Attack);
+                float finalValue = baseValue * Data.ValueRatio;
+                float signal = Data.ToEnemy ? -1 : 1;
+                target.Info.ChangeHP(finalValue * signal);
+            }
         }
 
         public static Skill Create(int kid)

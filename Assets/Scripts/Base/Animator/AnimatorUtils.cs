@@ -4,7 +4,7 @@ using System;
 
 namespace Base
 {
-    public static class AnimatorUtils
+    public static class AnimatorConstDef
     {
         public const string STATE_IDLE = "Base.idle";
         public const string STATE_RUN = "Base.run";
@@ -15,10 +15,9 @@ namespace Base
         public const string PARAM_SKILL = "skill_";
         public const string PARAM_DIE = "die";
 
-        public static string GetState(string trigger)
-        {
-            return "Base." + trigger;
-        }
+    }
+    public static class AnimatorUtils
+    {
     }
 }
 

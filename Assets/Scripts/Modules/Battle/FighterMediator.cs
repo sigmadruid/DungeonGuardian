@@ -32,18 +32,18 @@ namespace Logic
                     fighter = Fighter.Create(100000, startPosition1);
                     break;
                 }
-                case Notifications.INPUT_MOUSE_LEFT_CLICK:
-                {
-                    Vector3 destPosition = (Vector3)param;
-                    fighter.Move(destPosition);
-                    break;
-                }
-                case Notifications.INPUT_MOUSE_RIGHT_CLICK:
-                {
-                    int skillIndex = 0;
-                    fighter.CastSkill(skillIndex);
-                    break;
-                }
+//                case Notifications.INPUT_MOUSE_LEFT_CLICK:
+//                {
+//                    Vector3 destPosition = (Vector3)param;
+//                    fighter.Move(destPosition);
+//                    break;
+//                }
+//                case Notifications.INPUT_MOUSE_RIGHT_CLICK:
+//                {
+//                    int skillIndex = 0;
+//                    fighter.CastSkill(skillIndex);
+//                    break;
+//                }
             }
         }
     }

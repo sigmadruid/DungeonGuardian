@@ -5,11 +5,19 @@ using Base;
 
 namespace Logic
 {
-    public class FighterInfo
+    public class FighterInfo : EntityInfo
     {
+        public Action CallbackDie;
+
         public Faction Faction;
 
-        public FighterData Data { get; private set; }
+        public new FighterData Data
+        {
+            get { return data as FighterData; }
+            set { data = value; }
+        }
+
+        public bool IsAlive { get; private set; }
 
         private float currentHP;
         private Dictionary<string, Buff> bufferDic = new Dictionary<string, Buff>();
@@ -17,6 +25,7 @@ namespace Logic
         public void Init(int kid)
         {
             Data = FighterData.Get(kid);
+            IsAlive = true;
             currentHP = Data.HP;
         }
         public void Dispose()
@@ -64,6 +73,11 @@ namespace Logic
         public void ChangeHP(float delta)
         {
             currentHP += delta;
+            if (currentHP <= 0)
+            {
+                IsAlive = false;
+                CallbackDie();
+            }
         }
 
         public void AddBuff(int kid)

@@ -320,11 +320,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012822690574}
-  - 95: {fileID: 95000013530579282}
-  - 143: {fileID: 143000010824696034}
-  - 114: {fileID: 114000013060424696}
-  - 114: {fileID: 114000013861787584}
   - 114: {fileID: 114000010834824878}
+  - 95: {fileID: 95000013530579282}
+  - 114: {fileID: 114000013060424696}
+  - 143: {fileID: 143000010824696034}
+  - 114: {fileID: 114000013861787584}
   - 114: {fileID: 114000010384421002}
   m_Layer: 0
   m_Name: Monster_1
@@ -988,7 +988,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Uid: 
   EnableLog: 0
-  IsAttacking: 0
 --- !u!114 &114000013060424696
 MonoBehaviour:
   m_ObjectHideFlags: 1

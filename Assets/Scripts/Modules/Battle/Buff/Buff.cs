@@ -10,7 +10,7 @@ namespace Logic
 
         public void Init(int kid)
         {
-            Data = FighterData.Get(kid);
+            Data = BuffData.Get(kid);
             timer = 0;
         }
         public void Dispose()

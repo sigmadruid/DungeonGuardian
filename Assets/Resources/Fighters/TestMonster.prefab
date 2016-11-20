@@ -148,7 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Uid: 
   EnableLog: 0
-  IsAttacking: 0
 --- !u!114 &114000013888096434
 MonoBehaviour:
   m_ObjectHideFlags: 1
