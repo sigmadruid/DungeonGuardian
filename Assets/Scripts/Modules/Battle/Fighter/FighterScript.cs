@@ -35,7 +35,7 @@ namespace Logic
         }
         void Update()
         {
-            if (XZDirection != Vector3.zero)
+            if (IsMoving && XZDirection != Vector3.zero)
                 transform.localRotation = Quaternion.LookRotation(XZDirection);
 
             if (CallbackUpdate != null) 

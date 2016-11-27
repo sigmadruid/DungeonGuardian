@@ -1,4 +1,6 @@
-﻿using System;
+﻿using UnityEngine;
+
+using System;
 using System.Collections.Generic;
 
 using Base;
@@ -50,6 +52,9 @@ namespace Logic
 
             HasFinished = false;
             HasExecuted = false;
+
+            Vector3 targetDirection = targetList.First.Value.WorldPosition - caster.WorldPosition;
+            caster.SetRotation(targetDirection);
         }
         private void Execute()
         {
@@ -59,11 +64,7 @@ namespace Logic
                 Fighter target = enumerator.Current;
                 if (!target.Info.IsAlive)
                     continue;
-                //TODO: Move these calculation to a battle proxy
-                float baseValue = caster.Info.GetValue(BattleAttribute.Attack);
-                float finalValue = baseValue * Data.ValueRatio;
-                float signal = Data.ToEnemy ? -1 : 1;
-                target.Info.ChangeHP(finalValue * signal);
+                BattleCalculator.CommonSkill(this, caster.Info, target.Info);
             }
         }
 
@@ -78,6 +79,7 @@ namespace Logic
         public static void Recycle(Skill skill)
         {
             skill.Dispose();
+            skill.targetList.Clear();
             skill.Data = null;
         }
     }

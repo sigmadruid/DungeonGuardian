@@ -35,8 +35,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012922777172}
-  - 95: {fileID: 95000011590074578}
   - 114: {fileID: 114000012371685774}
+  - 95: {fileID: 95000011590074578}
   - 143: {fileID: 143000011695743430}
   - 114: {fileID: 114000013888096434}
   - 114: {fileID: 114000011355290002}
@@ -134,7 +134,7 @@ MonoBehaviour:
   Speed: 3
   AngularSpeed: 5
   StopDistance: 0.1
-  EnableLog: 0
+  EnableLog: 1
 --- !u!114 &114000012371685774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Uid: 
-  EnableLog: 0
+  EnableLog: 1
 --- !u!114 &114000013888096434
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -31,10 +31,15 @@ namespace Base
         private Seeker seeker;
         private CharacterController controller;
 
-        void Start () 
+        void Awake() 
         {
             seeker = GetComponent<Seeker>();
             controller = GetComponent<CharacterController>();
+        }
+
+        void Start()
+        {
+            currentDirection = transform.forward;
         }
 
         void Update()
@@ -46,6 +51,7 @@ namespace Base
                 nextPosition = path.vectorPath[nextPathIndex];
                 desiredDirection = (nextPosition - transform.position).normalized;
 
+                currentDirection = transform.forward;
                 currentDirection = Vector3.Lerp(currentDirection, desiredDirection, Time.deltaTime * AngularSpeed);
                 currentDirection.Normalize();
                 controller.Move(desiredDirection * Speed * Time.deltaTime);
@@ -58,13 +64,11 @@ namespace Base
                         transform.position = path.vectorPath[path.vectorPath.Count - 1];
                         IsMoving = false;
                         if (CallbackMoveEnd != null) CallbackMoveEnd();
-                        Log("path end");
                         path = null;
                     }
                     else
                     {
                         if (CallbackMoveTurn != null) CallbackMoveTurn();
-                        Log("path turn");
                     }
                 }
             }
@@ -83,7 +87,6 @@ namespace Base
                 path = null;
                 IsMoving = false;
                 if (CallbackMoveEnd != null) CallbackMoveEnd();
-                Log("path end");
             }
             else if (destPosition != Destination)
             {
@@ -100,7 +103,6 @@ namespace Base
                 transform.position = path.vectorPath[0];
                 IsMoving = true;
                 if (CallbackMoveStart != null) CallbackMoveStart();
-                Log("path start");
             }
         }
 

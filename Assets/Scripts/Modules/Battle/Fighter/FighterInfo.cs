@@ -75,6 +75,7 @@ namespace Logic
             currentHP += delta;
             if (currentHP <= 0)
             {
+                currentHP = 0;
                 IsAlive = false;
                 CallbackDie();
             }
@@ -102,6 +103,11 @@ namespace Logic
                 }
             }
             return result;
+        }
+
+        public string Format()
+        {
+            return string.Format("name:{0}, hp:{1}", Data.Name, GetCurrentHP()); 
         }
     }
 }

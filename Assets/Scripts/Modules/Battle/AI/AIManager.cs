@@ -17,7 +17,7 @@ namespace Logic
             Instance = null;
         }
 
-        public const float AI_UPDATE_INTERVAL = 0.5f;
+        public const float AI_UPDATE_INTERVAL = 0.1f;
         private float timer = 0f;
 
         private Dictionary<string, AI> aiDic = new Dictionary<string, AI>();
@@ -31,7 +31,9 @@ namespace Logic
             base.OnUpdate(deltaTime);
 
             timer += deltaTime;
-            if (timer > AI_UPDATE_INTERVAL) timer = 0;
+            if(timer < AI_UPDATE_INTERVAL)
+                return;
+            timer -= AI_UPDATE_INTERVAL;
 
             foreach(AI ai in aiDic.Values)
             {

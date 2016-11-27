@@ -58,10 +58,6 @@ namespace Logic
                 }
             }
 
-            if (Script.EnableLog)
-            {
-                Debug.LogError(Format());
-            }
         }
 
         #region States
@@ -92,8 +88,8 @@ namespace Logic
                 currentSkill = SkillManager.Instance.GetSkill(uid);
                 currentSkill.Start(this, targetList);
 
-                Script.DoSkill(index);
                 Script.SetDestination(Vector3.zero);
+                Script.DoSkill(index);
             }
         }
 
@@ -121,7 +117,7 @@ namespace Logic
 
         public string Format()
         {
-            return string.Format("{0}, {1}, {2}", Data.Name, WorldPosition, Info.GetCurrentHP()); 
+            return string.Format("name:{0}, position:{1}, hp:{2}", Data.Name, WorldPosition, Info.GetCurrentHP()); 
         }
 
         #region Factroy
