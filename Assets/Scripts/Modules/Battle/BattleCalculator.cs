@@ -20,6 +20,7 @@ namespace Logic
                 damage = attack;
             }
             target.ChangeHP(damage);
+            BaseLogger.LogError(caster.Data.Name + ", " + UnityEngine.Time.time.ToString());
 //            BaseLogger.LogError(target.Format() + " time:" + UnityEngine.Time.time.ToString());
         }
     }

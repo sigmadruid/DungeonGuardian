@@ -17,7 +17,7 @@ namespace Logic
             set { data = value; }
         }
 
-        public FighterInfo Info
+        public new FighterInfo Info
         {
             get { return info as FighterInfo; }
             set { info = value; }

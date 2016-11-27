@@ -42,6 +42,8 @@ namespace Logic
             Fighter result = null;
             foreach(Fighter each in fighterDic.Values)
             {
+                if(!each.Info.IsAlive)
+                    continue;
                 float sqrDistance = Vector3.SqrMagnitude(each.WorldPosition - fighter.WorldPosition);
                 if (sqrDistance < minSqrDistance 
                     && each.Uid != fighter.Uid 
